@@ -12,23 +12,20 @@ Bu belge, **Tranquilo** (Düşünce Süzgeci) projesinin Play Store standartlar�
   - [x] Renk paletini tanımla (Bordo: `#750002`, Pembe: `#f1a2df`, yumuşak geçiş tonları)
   - [x] Koyu (Dark) ve Açık (Light) tema desteği
   - [ ] Erişilebilirlik: Dinamik metin boyutu ve animasyon azaltma modu
-- [ ] **Local-First Yerel Depolama (Offline-First):**
-  - [ ] Yerel veritabanı kurulumu (Hive / Isar / SQLite)
-  - [ ] Çevrimdışı senkronizasyon kuyruğu (offline queue: bağlantı gelince Supabase'e gönder)
-- [ ] **Supabase Backend Entegrasyonu:**
-  - [ ] Supabase projesini oluştur ve Flutter SDK'yı entegre et
-  - [ ] **Auth (Kimlik Doğrulama):**
-    - [ ] Anonim Giriş (Guest Mode - Kullanıcıyı kayıtla boğmadan doğrudan deneyim sunma)
+- [x] **Local-First Yerel Depolama (Offline-First):**
+  - [x] Yerel veritabanı kurulumu (Hive)
+  - [x] Çevrimdışı senkronizasyon kuyruğu (offline queue: bağlantı gelince Supabase'e gönder)
+- [x] **Supabase Backend Entegrasyonu:**
+  - [x] Supabase projesini oluştur ve Flutter SDK'yı entegre et
+  - [x] **Auth (Kimlik Doğrulama):**
+    - [x] Anonim Giriş (Guest Mode - Kullanıcıyı kayıtla boğmadan doğrudan deneyim sunma)
     - [ ] Google Sign-In & E-posta/Şifre ile hesabı kalıcı hale getirme (Upgrade account)
-  - [ ] **Veritabanı & RLS (Row Level Security):**
-    - [ ] `profiles` tablosu (kullanıcı ayarları, tercihler)
-    - [ ] `sessions` tablosu (id, user_id, worry_text, answers, small_action, intensity_before, intensity_after, created_at)
-    - [ ] Sıkı RLS politikaları (Her kullanıcı yalnızca kendi hassas verisine erişebilir)
-  - [ ] **Edge Functions (Güvenli AI Proxy):**
-    - [ ] Gemini API anahtarını Supabase Edge Function Secrets içinde güvene al
-    - [ ] `/generate-questions` Edge Function'ı: Kaygı metnine özel 3–4 yönlendirici soru üretimi
-    - [ ] `/generate-relief-message` Edge Function'ı: Seans sonu rahatlama ve eylemi pekiştirme mesajı
-    - [ ] Çevrimdışı/Hata durumları için mobil istemcide kural tabanlı yerel soru ve mesaj havuzu (Fallback)
+  - [x] **Veritabanı & RLS (Row Level Security):**
+    - [x] `sessions` tablosu ve RLS SQL şeması (`supabase_schema.sql`)
+    - [x] Sıkı RLS politikaları (Her kullanıcı yalnızca kendi hassas verisine erişebilir)
+  - [x] **Edge Functions (Güvenli AI Proxy):**
+    - [x] AI Edge Function istemci çağrıları (`generate-questions`, `generate-relief-message`)
+    - [x] Çevrimdışı/Hata durumları için mobil istemcide kural tabanlı yerel soru ve mesaj havuzu (Fallback)
 
 ---
 
