@@ -112,3 +112,44 @@ Bu belge, **Tranquilo** (Düşünce Süzgeci) projesinin Play Store standartlar�
 - [ ] Android App Bundle (`.aab`) derlemesi ve imzalanması
 - [ ] Kapalı Test (Closed Testing) süreci ve geri bildirimlerin toplanması
 - [ ] Production yayını 🚀
+
+---
+
+## 🚨 Yayın Öncesi Zorunlu Güvenlik ve İşlevsellik Kontrolleri
+
+Bu bölümdeki maddeler tamamlanıp gerçek cihaz ve Supabase ortamında doğrulanmadan uygulama Play Store'a gönderilmemelidir. Tranquilo; kaygı cümleleri, kullanıcı yanıtları ve ruh sağlığıyla ilişkili hassas veriler işlediği için bu kontroller doğrudan kullanıcı mahremiyetiyle ilgilidir.
+
+### 1. Anonim oturumun gerçekten başlatılması ve RLS'in kapatılması
+
+- [ ] **Uygulama açılır açılmaz Supabase anonim oturumu başlat.** `SupabaseService.signInAnonymously()` metodu mevcut, fakat uygulama başlangıcında çağrılmıyor. Oturum yokken kayıtlar `anonymous` kimliğiyle yazılabilir; bunun yerine her kullanıcıya Supabase Auth tarafından üretilmiş benzersiz bir anonim `auth.uid()` atanmalıdır.
+- [ ] **`sessions` RLS politikalarından `OR user_id = 'anonymous'` koşulunu kaldır.** Bu koşul, anonim etiketli kayıtların başka anonim istemciler tarafından da okunmasına, değiştirilmesine veya silinmesine yol açabilir. SELECT / INSERT / UPDATE / DELETE politikaları yalnızca `auth.uid()::text = user_id` doğrulamasına dayanmalıdır.
+- [ ] **`user_id` alanının istemciden güvenilerek gelmesini engelle.** Yeni kayıt oluştururken kullanıcı kimliğini oturumdaki `auth.uid()` ile eşleştir; test ortamında başka bir kullanıcıyla giriş yaparak bir kullanıcının diğerinin seanslarını göremediğini, güncelleyemediğini ve silemediğini doğrula.
+- [ ] **Oturum başlatılamazsa bulut eşitlemeyi durdur.** Anonim giriş başarısız olduğunda uygulama yerel/fallback modda devam edebilir; ancak `anonymous` ortak kimliğiyle Supabase'e hassas seans verisi göndermemelidir.
+
+### 2. Hesap ve tüm verileri silme akışını gerçek ve doğrulanabilir yap
+
+- [ ] **`delete-user-account` Supabase Edge Function'ını oluştur ve deploy et.** Mobil uygulama bu fonksiyonu çağırıyor, fakat proje içinde fonksiyon henüz bulunmuyor. Fonksiyon yalnızca çağrıyı yapan kullanıcının JWT'sinden alınan kullanıcıyı silebilmeli; istemcinin gönderdiği herhangi bir kullanıcı kimliğine güvenmemelidir.
+- [ ] **Silme sırasını sunucuda güvenli biçimde tamamla.** Önce yalnızca oturumdaki kullanıcıya ait `sessions` kayıtlarını sil, sonra Supabase Auth kullanıcısını admin yetkisiyle sil. Service-role anahtarı hiçbir koşulda mobil uygulamaya eklenmemeli; yalnızca Edge Function secret olarak tutulmalıdır.
+- [ ] **Başarı/başarısızlık bilgisini kullanıcıya doğru göster.** Şu an yerel veriler temizlendikten sonra uzak silme başarısız olsa bile başarılı mesajı gösterilebilir. İşlem sonucu kullanıcıya açıkça bildirilmeli; başarısızlıkta yeniden deneme veya destek yönlendirmesi sunulmalıdır.
+- [ ] **Silme senaryosunu iki farklı test kullanıcısıyla doğrula.** Birinci kullanıcı kendi verilerini silebilmeli; ikinci kullanıcının kayıtları kesinlikle etkilenmemelidir. Silme sonrasında hem cihazdaki Hive kutusu hem Supabase `sessions` tablosu hem de Auth kullanıcısı kontrol edilmelidir.
+- [ ] **Play Store için herkese açık hesap silme URL'si hazırla.** Uygulama içindeki silme butonuna ek olarak, Google Play Console'da verilecek web sayfası kullanıcıya hangi verinin silindiğini, silme sürecini ve iletişim yolunu açıklamalıdır.
+
+### 3. Ayarları yalnızca kaydetmek yerine uygulama davranışına bağla
+
+- [ ] **Haptic ayarını tüm titreşim çağrılarına bağla.** Kullanıcı “Dokunsal Titreşim”i kapattığında kaya kırma ve taşı kaydırma sırasında `HapticFeedback` veya `Vibration` hiç çağrılmamalıdır.
+- [ ] **“Animasyonları azalt” tercihini erişilebilirlik özelliğine dönüştür.** AnimatedSwitcher, kaya sallanması, ölçeklenme, parlama ve geçiş süreleri bu tercih açıkken azaltılmalı veya anlık geçişe çevrilmelidir. Sistem düzeyindeki “animasyonları kaldır” tercihi de mümkünse dikkate alınmalıdır.
+- [ ] **Ses ayarını tamamla ya da ilk sürümden kaldır.** Ses açıkken yalnızca kullanıcının başlattığı etkileşimlerde yumuşak ses oynatılmalı; kapalıyken hiçbir ses yüklenmemeli/çalınmamalıdır. Ses dosyaları ve ses seviyesi tasarımı hazır değilse ayarı görünür bırakmak yerine sonraki sürüme taşımak daha dürüst olur.
+- [ ] **Açık/koyu tema tercihini ekle.** Uygulama şu an koyu modla sabit açılıyor. Ayarlara tema seçimi eklenmeli; `system`, `light` ve `dark` seçenekleri kalıcı olarak saklanmalı ve bütün ekranlar seçime uygun renk/kontrastla test edilmelidir.
+
+### 4. Ürün akışındaki eksiklerin tamamlanması
+
+- [ ] **Geçmiş seans detay ekranını ekle.** Geçmiş listesinde kullanıcı bir kayda dokunduğunda kaygı metni, AI soruları, isteğe bağlı yanıtlar, mikro adım, rahatlatıcı mesaj ve tarih gösterilmelidir. Hassas metinlerin bildirimlerde veya uygulama önizlemelerinde görünmemesine dikkat edilmelidir.
+- [ ] **"Geçmişi hiç kaydetme" tercihini test et.** Bu seçenek açıkken seansın Hive'a da Supabase'e de yazılmadığını; önceki kayıtların otomatik silinmediğini ve kullanıcıya davranışın açıkça anlatıldığını doğrula.
+- [ ] **Kriz filtresi için negatif ve pozitif test seti oluştur.** Kendine zarar riski taşıyan Türkçe/İngilizce farklı ifadeler destek ekranına yönlendirmeli; bağlam dışı veya zararsız cümlelerde yanlış pozitif üretmemelidir. Bu filtre ek güvenlik katmanıdır; tek başına kriz tespiti garantisi olarak sunulmamalıdır.
+- [ ] **AI Edge Function'larına kötüye kullanımı önleyecek sınırlar koy.** Her çağrıda geçerli kullanıcı oturumu doğrulanmalı, istek boyutu sınırlandırılmalı ve kullanıcı/IP başına makul oran sınırlaması uygulanmalıdır. Bu hem hassas veri erişimini hem de Gemini maliyetini korur.
+
+### 5. Doğrulama ve yayın kararı
+
+- [ ] **Gerçek cihazlarda Flutter analiz, widget testi ve release build çalıştır.** En az bir düşük/orta seviye Android cihazda kaya animasyonu, klavye görünümü, ekran boyutu, koyu/açık tema, titreşim kapalı durumu ve çevrimdışı fallback akışı kontrol edilmelidir.
+- [ ] **Supabase ortamını ayrı test ve canlı projelere böl.** Geliştirme/test sırasında gerçek kullanıcı verisi veya canlı Gemini maliyeti kullanılmamalı; canlı URL, publishable key ve Edge Function secret'ları yayın anında ayrı ortamdan yönetilmelidir.
+- [ ] **Gizlilik politikası ve Data Safety beyanını gerçek davranışla eşleştir.** Kaygı metinleri, kullanıcı kimliği, yerel depolama, Supabase aktarımı, AI işleme ve veri silme süreçleri açıkça belirtilmeli; uygulamada olmayan bir güvenlik özelliği beyan edilmemelidir.
