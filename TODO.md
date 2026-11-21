@@ -30,32 +30,32 @@ Bu belge, **Tranquilo** (Düşünce Süzgeci) projesinin Play Store standartlar�
 ---
 
 ## 🎨 Aşama 2: Temel Kullanıcı Akışı ve Dokunsal Deneyim (Core UX)
-- [ ] **Karşılama Ekranı (Welcome Screen)**
-  - [ ] Minimalist ve sakinleştirici açılış, “Başla” butonu
-  - [ ] Hızlı başlangıç (Anonim / Misafir oturumu arka planda başlar)
-- [ ] **Düşünce Giriş Ekranı (Thought Input)**
-  - [ ] Odaklanmayı artıran sade metin kutusu (“Aklını meşgul eden düşünceyi yaz.”)
+- [x] **Karşılama Ekranı (Welcome Screen)**
+  - [x] Minimalist ve sakinleştirici açılış, “Başla” butonu
+  - [x] Hızlı başlangıç (Anonim / Misafir oturumu arka planda başlar)
+- [x] **Düşünce Giriş Ekranı (Thought Input)**
+  - [x] Odaklanmayı artıran sade metin kutusu (“Aklını meşgul eden düşünceyi yaz.”)
   - [ ] İsteğe bağlı: Başlangıç kaygı seviyesi seçimi (1–10)
-  - [ ] Metnin animasyonla ortada büyük bir "Kaya" nesnesine dönüşmesi
-- [ ] **Kaya Kırma Deneyimi (Interactive Rock Breaking)**
-  - [ ] Koyu renkli sembolik kaya tasarımı
-  - [ ] Dokunma/vurma algılayıcıları ve dokunma başına görsel çatlama animasyonları
-  - [ ] Yumuşak haptic feedback (dokunsal geri bildirim)
+  - [x] Metnin animasyonla ortada büyük bir "Kaya" nesnesine dönüşmesi
+- [x] **Kaya Kırma Deneyimi (Interactive Rock Breaking)**
+  - [x] Koyu renkli sembolik kaya tasarımı
+  - [x] Dokunma/vurma algılayıcıları ve dokunma başına görsel çatlama animasyonları
+  - [x] Yumuşak haptic feedback (dokunsal geri bildirim)
   - [ ] İsteğe bağlı sakinleştirici ses efekti (cam, çakıl veya hafif nefes tınısı)
-  - [ ] Birkaç dokunuş sonrası kayanın 3–4 küçük taş parçasına ayrılması
-- [ ] **Taş Soruları ve Düşünce Süzgeci (Stone Prompts)**
-  - [ ] Supabase Edge Function üzerinden gelen 3–4 AI sorusunun taşlar üzerinde gösterilmesi
-  - [ ] Taşa dokunulduğunda açılan kısa cevap yazma/seçenek kartı
-  - [ ] Son sorunun mutlaka uygulanabilir mikro adıma odaklanması (“Şimdi yapabileceğin, iki dakikadan kısa tek bir adım ne?”)
-- [ ] **Sürükle-Bırak ile Temizleme (Swipe/Drag to Clear)**
-  - [ ] Cevaplanan taşın ekrandan dışarı sürüklenerek uzaklaştırılması
-  - [ ] Hafif parçacık animasyonu ve haptic geri bildirimi
-- [ ] **Huzurlu Alan ve Seans Özeti (Peaceful Completion & Summary)**
-  - [ ] Tüm taşlar temizlendiğinde ferah, aydınlık ve huzurlu arka plan geçişi
-  - [ ] AI tarafından üretilen kişiselleştirilmiş rahatlama mesajı
-  - [ ] Vurgulanan "Tek Küçük Adım" kartı
+  - [x] Birkaç dokunuş sonrası kayanın 3–4 küçük taş parçasına ayrılması
+- [x] **Taş Soruları ve Düşünce Süzgeci (Stone Prompts)**
+  - [x] Supabase Edge Function / Fallback üzerinden gelen 3–4 AI sorusunun taşlar üzerinde gösterilmesi
+  - [x] Taşa dokunulduğunda açılan kısa cevap yazma kartı
+  - [x] Son sorunun mutlaka uygulanabilir mikro adıma odaklanması (“Şimdi yapabileceğin, iki dakikadan kısa tek bir adım ne?”)
+- [x] **Sürükle-Bırak ile Temizleme (Swipe/Drag to Clear)**
+  - [x] Cevaplanan taşın ekrandan dışarı sürüklenerek uzaklaştırılması (Dismissible)
+  - [x] Hafif parçacık animasyonu ve haptic geri bildirimi
+- [x] **Huzurlu Alan ve Seans Özeti (Peaceful Completion & Summary)**
+  - [x] Tüm taşlar temizlendiğinde ferah, aydınlık ve huzurlu arka plan geçişi
+  - [x] AI tarafından üretilen kişiselleştirilmiş rahatlama mesajı
+  - [x] Vurgulanan "Tek Küçük Adım" kartı
   - [ ] İsteğe bağlı: Seans sonrası kaygı seviyesi değerlendirmesi (1–10)
-  - [ ] Seansı yerel veritabanına ve Supabase'e kaydetme
+  - [x] Seansı yerel veritabanına ve Supabase'e kaydetme
 
 ---
 

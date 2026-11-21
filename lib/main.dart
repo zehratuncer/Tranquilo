@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/theme/app_theme.dart';
 import 'core/services/local_storage_service.dart';
 import 'core/constants/supabase_config.dart';
+import 'features/session/screens/session_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,15 +34,7 @@ class TranquiloApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.dark,
-      home: const Scaffold(
-        body: Center(
-          child: Text(
-            'Tranquilo\n"Düşünce yok olmadı; ama artık daha taşınabilir."',
-            textAlign: TextAlign.center,
-            style: TextStyle(height: 1.6),
-          ),
-        ),
-      ),
+      home: const SessionScreen(),
     );
   }
 }

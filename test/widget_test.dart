@@ -5,6 +5,9 @@ import 'package:tranquilo/main.dart';
 void main() {
   testWidgets('Tranquilo app smoke test', (WidgetTester tester) async {
     await tester.pumpWidget(const ProviderScope(child: TranquiloApp()));
-    expect(find.textContaining('Tranquilo'), findsOneWidget);
+    await tester.pumpAndSettle();
+    expect(find.text('Tranquilo'), findsOneWidget);
+    expect(find.text('Başla'), findsOneWidget);
   });
 }
+
