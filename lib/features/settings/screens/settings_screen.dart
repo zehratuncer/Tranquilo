@@ -93,7 +93,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             title: const Text('Dokunsal Titreşim (Haptic)'),
             subtitle: const Text('Kayaya dokunurken ve taşları iterken hafif titreşim.'),
             value: _haptic,
-            activeColor: AppColors.pink,
+            activeThumbColor: AppColors.pink,
             onChanged: (val) {
               setState(() => _haptic = val);
               local.setHapticEnabled(val);
@@ -103,7 +103,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             title: const Text('Sakinleştirici Sesler'),
             subtitle: const Text('Kaya ve nefes benzeri hafif arka plan sesleri.'),
             value: _sound,
-            activeColor: AppColors.pink,
+            activeThumbColor: AppColors.pink,
             onChanged: (val) {
               setState(() => _sound = val);
               local.setSoundEnabled(val);
@@ -113,7 +113,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             title: const Text('Animasyonları Azalt'),
             subtitle: const Text('Daha sakin ve hareketsiz geçişler sağlar.'),
             value: _reduceAnimations,
-            activeColor: AppColors.pink,
+            activeThumbColor: AppColors.pink,
             onChanged: (val) {
               setState(() => _reduceAnimations = val);
               local.setReduceAnimations(val);
@@ -126,7 +126,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             title: const Text('Geçmişi Hiç Kaydetme'),
             subtitle: const Text('Seansların tamamlandıktan sonra hiçbir yerde saklanmaz.'),
             value: _doNotSaveHistory,
-            activeColor: AppColors.pink,
+            activeThumbColor: AppColors.pink,
             onChanged: (val) {
               setState(() => _doNotSaveHistory = val);
               local.setDoNotSaveHistory(val);
