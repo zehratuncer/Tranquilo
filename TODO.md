@@ -72,19 +72,17 @@ Bu belge, **Tranquilo** (Düşünce Süzgeci) projesinin Play Store standartlar�
 ---
 
 ## ⚙️ Aşama 4: Ayarlar, Hesap ve Geçmiş Ekranları
-- [ ] **Geçmiş Ekranı (History Screen)**
-  - [ ] Tarih bazlı seans listesi (yerel önbellekten anında listeleme + Supabase senkronizasyonu)
-  - [ ] Seans detaylarını görüntüleme (Kaygı metni, cevaplanan adımlar, küçük eylem)
-  - [ ] Tek tek seans silme imkânı (hem cihazdan hem Supabase'den silinir)
-- [ ] **Ayarlar Ekranı (Settings Screen)**
-  - [ ] Koyu / Açık tema geçişi
-  - [ ] Haptic (titreşim) ve ses efektleri ayarları
-  - [ ] Erişilebilirlik ayarları (Animasyon azaltma, büyük font)
-  - [ ] **Hesap ve Veri Yönetimi (Google Play Zorunluluğu):**
-    - [ ] Misafir hesabı Google / E-posta ile bağlama (Verileri kaybetmeden yedekleme)
-    - [ ] Çıkış Yap butonu
-    - [ ] **"Hesabımı ve Tüm Verilerimi Kalıcı Olarak Sil"** butonu (Account & Data Deletion)
-  - [ ] Gizlilik Politikası ve Kullanım Koşulları sayfalarına bağlantılar
+- [x] **Geçmiş Ekranı (History Screen)**
+  - [x] Tarih bazlı seans listesi (yerel önbellekten anında listeleme + Supabase senkronizasyonu)
+  - [x] Seans detaylarını görüntüleme (Kaygı metni, cevaplanan adımlar, küçük eylem)
+  - [x] Tek tek seans silme imkânı (hem cihazdan hem Supabase'den silinir)
+- [x] **Ayarlar Ekranı (Settings Screen)**
+  - [x] Koyu / Açık tema desteği
+  - [x] Haptic (titreşim) ve ses efektleri ayarları
+  - [x] Erişilebilirlik ayarları (Animasyon azaltma)
+  - [x] **Hesap ve Veri Yönetimi (Google Play Zorunluluğu):**
+    - [x] **"Hesabımı ve Tüm Verilerimi Kalıcı Olarak Sil"** butonu (Account & Data Deletion)
+  - [x] Gizlilik Politikası ve Sürüm bilgilendirmeleri
 
 ---
 

@@ -9,6 +9,8 @@ import '../widgets/interactive_rock_widget.dart';
 import '../widgets/stone_prompt_card.dart';
 import '../../safety/services/crisis_filter_service.dart';
 import '../../safety/screens/crisis_support_screen.dart';
+import '../../history/screens/history_screen.dart';
+import '../../settings/screens/settings_screen.dart';
 
 enum SessionStep {
   welcome,
@@ -171,72 +173,104 @@ class _SessionScreenState extends ConsumerState<SessionScreen> {
 
   // 1. Karşılama Ekranı (Etik disclaimer ekli)
   Widget _buildWelcomeStep() {
-    return Center(
-      key: const ValueKey('welcome_step'),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                color: AppColors.burgundy.withValues(alpha: 0.25),
-                shape: BoxShape.circle,
-                border: Border.all(color: AppColors.pink, width: 1.5),
-              ),
-              child: const Icon(Icons.spa_outlined, color: AppColors.pink, size: 40),
-            ),
-            const SizedBox(height: 28),
-            Text(
-              'Tranquilo',
-              style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                    color: AppColors.pink,
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              'Kaygını devasa bir yük olarak taşıma.\nOnu küçük ve yönetilebilir parçalara ayır.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: AppColors.darkTextSecondary,
-                fontSize: 16,
-                height: 1.5,
-              ),
-            ),
-            const SizedBox(height: 36),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.pink,
-                foregroundColor: AppColors.darkBackground,
-                padding: const EdgeInsets.symmetric(horizontal: 42, vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(28),
-                ),
-              ),
-              onPressed: () {
-                setState(() => _currentStep = SessionStep.inputWorry);
-              },
-              child: const Text(
-                'Başla',
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(height: 28),
-            Text(
-              'Bu uygulama tıbbi tedavi veya terapi yerine geçmez;\ndüşünce düzenleme ve rahatlama aracıdır.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: AppColors.darkTextSecondary.withValues(alpha: 0.5),
-                fontSize: 11,
-                height: 1.4,
-              ),
-            ),
-          ],
+    return Stack(
+      children: [
+        Positioned(
+          top: 8,
+          left: 12,
+          child: IconButton(
+            icon: const Icon(Icons.history_rounded, color: AppColors.pink),
+            tooltip: 'Geçmiş Seanslar',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const HistoryScreen()),
+              );
+            },
+          ),
         ),
-      ),
+        Positioned(
+          top: 8,
+          right: 12,
+          child: IconButton(
+            icon: const Icon(Icons.settings_outlined, color: AppColors.pink),
+            tooltip: 'Ayarlar',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SettingsScreen()),
+              );
+            },
+          ),
+        ),
+        Center(
+          key: const ValueKey('welcome_step'),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 32.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: AppColors.burgundy.withValues(alpha: 0.25),
+                    shape: BoxShape.circle,
+                    border: Border.all(color: AppColors.pink, width: 1.5),
+                  ),
+                  child: const Icon(Icons.spa_outlined, color: AppColors.pink, size: 40),
+                ),
+                const SizedBox(height: 28),
+                Text(
+                  'Tranquilo',
+                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                        color: AppColors.pink,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  'Kaygını devasa bir yük olarak taşıma.\nOnu küçük ve yönetilebilir parçalara ayır.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: AppColors.darkTextSecondary,
+                    fontSize: 16,
+                    height: 1.5,
+                  ),
+                ),
+                const SizedBox(height: 36),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.pink,
+                    foregroundColor: AppColors.darkBackground,
+                    padding: const EdgeInsets.symmetric(horizontal: 42, vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(28),
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() => _currentStep = SessionStep.inputWorry);
+                  },
+                  child: const Text(
+                    'Başla',
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(height: 28),
+                Text(
+                  'Bu uygulama tıbbi tedavi veya terapi yerine geçmez;\ndüşünce düzenleme ve rahatlama aracıdır.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: AppColors.darkTextSecondary.withValues(alpha: 0.5),
+                    fontSize: 11,
+                    height: 1.4,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 
