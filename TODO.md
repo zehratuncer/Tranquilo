@@ -24,7 +24,10 @@ Bu belge, **Tranquilo** (Düşünce Süzgeci) projesinin Play Store standartlar�
     - [x] `sessions` tablosu ve RLS SQL şeması (`supabase_schema.sql`)
     - [x] Sıkı RLS politikaları (Her kullanıcı yalnızca kendi hassas verisine erişebilir)
   - [x] **Edge Functions (Güvenli AI Proxy):**
-    - [x] AI Edge Function istemci çağrıları (`generate-questions`, `generate-relief-message`)
+    - [x] Gemini API anahtarını Supabase Edge Function Secrets içinde güvene al
+    - [x] `/generate-questions` Edge Function'ı deploy edildi: Kaygı metnine özel 3–4 yönlendirici soru üretimi
+    - [x] `/generate-relief-message` Edge Function'ı deploy edildi: Seans sonu rahatlama ve eylemi pekiştirme mesajı
+    - [x] Canlı Supabase URL ve Publishable Key entegrasyonu tamamlandı
     - [x] Çevrimdışı/Hata durumları için mobil istemcide kural tabanlı yerel soru ve mesaj havuzu (Fallback)
 
 ---

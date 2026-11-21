@@ -1,18 +1,18 @@
 class SupabaseConfig {
   SupabaseConfig._();
 
-  // Supabase proje bilgileri (Geliştirici konsolundan alınacak yer tutucular)
   static const String supabaseUrl = String.fromEnvironment(
     'SUPABASE_URL',
-    defaultValue: 'https://xyzcompany.supabase.co',
+    defaultValue: 'https://gkumrnhemtksrkciseem.supabase.co',
   );
 
   static const String supabasePublishableKey = String.fromEnvironment(
     'SUPABASE_PUBLISHABLE_KEY',
-    defaultValue: 'public-anon-key-placeholder',
+    defaultValue: 'sb_publishable_HfQSlrTvw6AXUl1kh05kNA_wsAxtJue',
   );
 
   static bool get isConfigured =>
-      supabaseUrl != 'https://xyzcompany.supabase.co' &&
+      supabaseUrl.isNotEmpty &&
+      supabasePublishableKey.isNotEmpty &&
       supabasePublishableKey != 'public-anon-key-placeholder';
 }
