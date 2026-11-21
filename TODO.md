@@ -99,7 +99,8 @@ Bu belge, **Tranquilo** (Düşünce Süzgeci) projesinin Play Store standartlar�
 ---
 
 ## 📦 Aşama 6: Google Play Store Yayını
-- [ ] Uygulama ikonu ve splash screen tasarımı
+- [x] Uygulama ikonu oluşturuldu ve Android/iOS/Web/Windows platformlarına yerleştirildi
+- [ ] Splash screen tasarımı
 - [ ] Feature Graphic (Öne çıkan görsel) ve 4–6 adet mağaza ekran görüntüsü
 - [ ] Mağaza açıklaması ve anahtar kelimelerin hazırlanması (Türkçe)
 - [ ] Gizlilik Politikası web sayfasının hazırlanıp yayınlanması (URL)
