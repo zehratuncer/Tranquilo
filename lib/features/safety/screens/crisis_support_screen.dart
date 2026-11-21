@@ -193,7 +193,7 @@ class CrisisSupportScreen extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           IconButton.filled(
-            style: IconButton.filledStyleFrom(
+            style: IconButton.styleFrom(
               backgroundColor: isPrimary ? AppColors.safetyWarning : AppColors.pink,
               foregroundColor: AppColors.darkBackground,
             ),
