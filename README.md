@@ -16,7 +16,7 @@ Kullanıcı zihnini meşgul eden düşünceyi yazar; bu düşünce sembolik bir 
 - **Mikro Eyleme Dönüştürme:** Seans sonunda 2 dakikadan kısa sürecek, hemen uygulanabilir "tek küçük adım" belirleme.
 - **Sürükle ve Temizle:** Cevaplanan taşları ekrandan sürükleyerek uzaklaştırma ve parçacık animasyonu ile huzurlu bir alana geçiş.
 - **Kişiselleştirilmiş Rahatlama Mesajı:** Seans sonunda AI destekli, garantici olmayan fakat şefkatli kapanış özeti.
-- **Tam Gizlilik ve Cihaz İçi Saklama:** Veriler varsayılan olarak yalnızca kullanıcının telefonunda tutulur; üyelik ve sunucu bağımlılığı gerektirmez. İstenildiği an tek tuşla tüm geçmiş silinebilir.
+- **Sıfır Sürtünmeli Başlangıç (Guest Mode):** Kullanıcıyı kayıt formlarıyla boğmadan doğrudan anonim oturumla başlatma; dilediğinde verilerini Google ile yedekleme imkânı.
 - **Kriz ve Etik Güvenlik Katmanı:** Kendine zarar veya acil risk içeren ifadelerde seans durdurularak kullanıcı doğrudan profesyonel destek hatlarına yönlendirilir.
 
 ---
@@ -32,13 +32,31 @@ Kullanıcı zihnini meşgul eden düşünceyi yazar; bu düşünce sembolik bir 
 
 ---
 
-## 🛠️ Teknik Altyapı
+## 🛠️ Teknik Altyapı ve Veri Mimarisi
 
-- **Framework:** [Flutter](https://flutter.dev/) (Android öncelikli)
-- **Mimari:** Feature-First / Clean Architecture
-- **State Management:** BLoC / Riverpod
-- **Yerel Veritabanı:** Hive / Isar (Çevrimdışı öncelikli, güvenli yerel depolama)
-- **AI Entegrasyonu:** Gemini API (Kişiselleştirilmiş soru ve kapanış mesajı üretimi, çevrimdışı durumlar için kural tabanlı yerel soru havuzu desteği)
+Uygulama, hem yüksek performans hem de Google Play Store standartlarında veri güvenliği sağlamak için **Local-First + Supabase (Hibrit)** mimarisini kullanır:
+
+```
+[Flutter UI]
+     │
+     ▼ (Anında Yazma / Okuma)
+[Yerel Önbellek: Hive/SQLite] ──(Çevrimdışı Kesintisiz Çalışma)
+     │
+     ▼ (Arka Planda Senkronizasyon)
+[Supabase Backend]
+     ├── Auth (Anonim Giriş / Google Sign-In)
+     ├── Postgres DB + Row Level Security (Kullanıcıya özel şifreli oturumlar)
+     └── Edge Functions (AI Proxy: Gemini API anahtarını gizler, soruları üretir)
+```
+
+- **Frontend / Mobil:** [Flutter](https://flutter.dev/) (Dart)
+- **Durum Yönetimi:** BLoC veya Riverpod
+- **Yerel Depolama (Local-First):** Hive / SQLite / Isar (Metroda, internetsiz ortamda bile kaya kırma akışı donmaz)
+- **Backend Servisi:** [Supabase](https://supabase.com/)
+  - **Auth:** Anonim (Misafir) giriş + Google / E-posta hesap bağlama
+  - **Database:** PostgreSQL (Row Level Security ile kullanıcı bazında izole veri güvenliği)
+  - **Edge Functions:** Gemini API anahtarını istemciye sızdırmadan güvenli AI soru & rahatlama mesajı üretimi
+  - **Hesap & Veri Silme:** Play Store zorunlu kuralı uyarınca uygulama içi tek tıkla hesap ve veri imhası
 
 ---
 
@@ -49,11 +67,11 @@ Kullanıcı zihnini meşgul eden düşünceyi yazar; bu düşünce sembolik bir 
 | **Karşılama** | Minimalist karşılama, uygulamanın amacı ve "Başla" butonu |
 | **Düşünce Girişi** | Kaygının tek cümleyle ifade edildiği odaklanma alanı |
 | **Kaya Ekranı** | Dokunarak kayayı kırma ve parçalama deneyimi |
-| **Taş Soruları** | Her bir taş parçasının temsil ettiği bilişsel süzgeç soruları |
+| **Taş Soruları** | Her bir taş parçasının temsil ettiği AI destekli süzgeç soruları |
 | **Sürükleme Alanı** | Cevaplanan taşları savurarak uzaklaştırma |
 | **Seans Özeti** | Huzurlu kapanış, rahatlama mesajı ve belirlenen küçük eylem |
-| **Geçmiş** | İsteğe bağlı yerel kayıtlar ve geçmiş seans incelemesi |
-| **Ayarlar** | Tema, ses, haptic, veri silme ve yasal bilgilendirmeler |
+| **Geçmiş** | Yerel önbellekten anında okunan, Supabase ile senkronize seans geçmişi |
+| **Ayarlar & Hesap** | Tema, ses, haptic, veri silme, hesap bağlama ve yasal metinler |
 | **Destek / Kriz Ekranı** | Riskli durumlarda devreye giren acil yardım rehberi |
 
 ---
@@ -67,4 +85,4 @@ Uygulama, bireylerin anlık stres ve kaygı anlarında düşüncelerini düzenle
 
 ## 🗺️ Yol Haritası ve Görevler
 
-Ayrıntılı geliştirme görevleri, tamamlanma durumları ve mağaza kontrol listesi için lütfen [TODO.md](file:///c:/Users/Zehra/Desktop/Projeler/Tranquilo/TODO.md) dosyasını inceleyin.
+Ayrıntılı geliştirme görevleri, Supabase entegrasyon adımları ve Google Play Store kontrol listesi için lütfen [TODO.md](file:///c:/Users/Zehra/Desktop/Projeler/Tranquilo/TODO.md) dosyasını inceleyin.
