@@ -5,12 +5,12 @@ Bu belge, **Tranquilo** (Düşünce Süzgeci) projesinin Play Store standartlar�
 ---
 
 ## 🚀 Aşama 1: Proje Kurulumu ve Mimari Altyapı
-- [ ] Flutter projesini oluştur (`com.zehratuncer.tranquilo`)
-- [ ] Klasör mimarisini kur (Clean Architecture / Feature-First: `core`, `features`, `data`, `presentation`)
-- [ ] Durum yönetimi (State Management) entegrasyonu (BLoC / Riverpod)
-- [ ] **Tasarım & Tema Sistemi:**
-  - [ ] Renk paletini tanımla (Bordo: `#750002`, Pembe: `#f1a2df`, yumuşak geçiş tonları)
-  - [ ] Koyu (Dark) ve Açık (Light) tema desteği
+- [x] Flutter projesini oluştur (`com.zehratuncer.tranquilo`)
+- [x] Klasör mimarisini kur (Clean Architecture / Feature-First: `core`, `features`, `data`, `presentation`)
+- [x] Durum yönetimi (State Management) entegrasyonu (Riverpod)
+- [x] **Tasarım & Tema Sistemi:**
+  - [x] Renk paletini tanımla (Bordo: `#750002`, Pembe: `#f1a2df`, yumuşak geçiş tonları)
+  - [x] Koyu (Dark) ve Açık (Light) tema desteği
   - [ ] Erişilebilirlik: Dinamik metin boyutu ve animasyon azaltma modu
 - [ ] **Local-First Yerel Depolama (Offline-First):**
   - [ ] Yerel veritabanı kurulumu (Hive / Isar / SQLite)
