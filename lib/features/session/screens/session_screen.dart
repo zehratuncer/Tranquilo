@@ -7,6 +7,8 @@ import '../../../core/services/service_providers.dart';
 import '../models/session_model.dart';
 import '../widgets/interactive_rock_widget.dart';
 import '../widgets/stone_prompt_card.dart';
+import '../../safety/services/crisis_filter_service.dart';
+import '../../safety/screens/crisis_support_screen.dart';
 
 enum SessionStep {
   welcome,
@@ -33,6 +35,7 @@ class _SessionScreenState extends ConsumerState<SessionScreen> {
   final Set<int> _dismissedStones = {};
   String _reliefMessage = FallbackPrompts.defaultReliefMessage;
   bool _isLoadingAi = false;
+  bool _showCrisisSupport = false;
 
   @override
   void dispose() {
@@ -44,6 +47,12 @@ class _SessionScreenState extends ConsumerState<SessionScreen> {
   Future<void> _onStartRockBreaking() async {
     final text = _worryController.text.trim();
     if (text.isEmpty) return;
+
+    // Güvenlik & Kriz Denetimi: Kendine zarar / acil risk içeriyor mu?
+    if (CrisisFilterService.containsCrisisRisk(text)) {
+      setState(() => _showCrisisSupport = true);
+      return;
+    }
 
     setState(() {
       _currentStep = SessionStep.rockBreaking;
@@ -115,11 +124,23 @@ class _SessionScreenState extends ConsumerState<SessionScreen> {
       _prompts.clear();
       _answers.clear();
       _dismissedStones.clear();
+      _showCrisisSupport = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_showCrisisSupport) {
+      return CrisisSupportScreen(
+        onDismiss: () {
+          setState(() {
+            _showCrisisSupport = false;
+            _currentStep = SessionStep.inputWorry;
+          });
+        },
+      );
+    }
+
     return Scaffold(
       backgroundColor: _currentStep == SessionStep.summary
           ? AppColors.lightBackground
@@ -148,7 +169,7 @@ class _SessionScreenState extends ConsumerState<SessionScreen> {
     }
   }
 
-  // 1. Karşılama Ekranı
+  // 1. Karşılama Ekranı (Etik disclaimer ekli)
   Widget _buildWelcomeStep() {
     return Center(
       key: const ValueKey('welcome_step'),
@@ -185,7 +206,7 @@ class _SessionScreenState extends ConsumerState<SessionScreen> {
                 height: 1.5,
               ),
             ),
-            const SizedBox(height: 48),
+            const SizedBox(height: 36),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.pink,
@@ -201,6 +222,16 @@ class _SessionScreenState extends ConsumerState<SessionScreen> {
               child: const Text(
                 'Başla',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 28),
+            Text(
+              'Bu uygulama tıbbi tedavi veya terapi yerine geçmez;\ndüşünce düzenleme ve rahatlama aracıdır.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: AppColors.darkTextSecondary.withValues(alpha: 0.5),
+                fontSize: 11,
+                height: 1.4,
               ),
             ),
           ],

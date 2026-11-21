@@ -60,14 +60,14 @@ Bu belge, **Tranquilo** (Düşünce Süzgeci) projesinin Play Store standartlar�
 ---
 
 ## 🛡️ Aşama 3: Güvenlik, Etik Tasarım ve Kriz Yönetimi
-- [ ] Yasal Sorumluluk Reddi (Disclaimer): "Bu uygulama tıbbi/terapi desteği yerine geçmez."
-- [ ] Kriz/Acil Durum Anahtar Kelime Filtresi (Kendine zarar, intihar, acil tehlike algılama)
-- [ ] Kriz algılandığında akışı durdurup doğrudan **Destek Ekranı**'na yönlendirme
-- [ ] Destek Ekranı: Ülkeye özel acil destek hatları, güvendiğin birine ulaşma önerileri
-- [ ] **Veri Güvenliği ve Google Play Kuralları:**
-  - [ ] Hassas metinlerin Supabase'de RLS ile korunması ve HTTPS ile şifreli aktarımı
-  - [ ] Reklam kişiselleştirmesi veya 3. parti izleyicilerin hassas verilere erişiminin engellenmesi
-  - [ ] "Gizli Seans / Geçmişi Kaydetme" modu
+- [x] Yasal Sorumluluk Reddi (Disclaimer): "Bu uygulama tıbbi/terapi desteği yerine geçmez."
+- [x] Kriz/Acil Durum Anahtar Kelime Filtresi (Kendine zarar, intihar, acil tehlike algılama)
+- [x] Kriz algılandığında akışı durdurup doğrudan **Destek Ekranı**'na yönlendirme
+- [x] Destek Ekranı: Ülkeye özel acil destek hatları (112, 183), doğrudan arama ve yakınlara ulaşma önerileri
+- [x] **Veri Güvenliği ve Google Play Kuralları:**
+  - [x] Hassas metinlerin Supabase'de RLS ile korunması ve HTTPS ile şifreli aktarımı
+  - [x] Reklam kişiselleştirmesi veya 3. parti izleyicilerin hassas verilere erişiminin engellenmesi
+  - [x] "Gizli Seans / Geçmişi Kaydetme" yerel tercihi desteği
 
 ---
 
